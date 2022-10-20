@@ -18,6 +18,7 @@ module PhaserNineSlice {
         /**
          * The original texture, unmodified
          */
+        private baseKey: string;
         public baseTexture: PIXI.BaseTexture;
         public texture: Phaser.RenderTexture;
         private baseFrame: PIXI.Rectangle;
@@ -25,6 +26,7 @@ module PhaserNineSlice {
         constructor(game: PhaserNineSlice.NineSliceGame, x:number, y:number, key: string, frame: string, width:number, height:number, data?: NineSliceCacheData) {
             super(game, x, y, key, frame);
 
+            this.baseKey = key;
             this.baseTexture = this.texture.baseTexture;
             this.baseFrame = this.texture.frame;
 
@@ -105,6 +107,17 @@ module PhaserNineSlice {
             this.localHeight = height;
 
             this.renderTexture();
+        }
+
+        /**
+         * Loads a different texture and frame
+         *
+         * @param frameName
+         */
+        public loadFrameName(frameName:string): void {
+            const frame = this.game.cache.getFrameByName(this.baseKey, frameName);
+            this.baseFrame = new PIXI.Rectangle(frame.x, frame.y, frame.width, frame.height);
+            this.resize(this.localWidth, this.localHeight);
         }
 
         /**

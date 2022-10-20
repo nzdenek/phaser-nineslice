@@ -7,12 +7,14 @@ declare module PhaserNineSlice {
         private bottomSize;
         localWidth: number;
         localHeight: number;
+        private baseKey;
         baseTexture: PIXI.BaseTexture;
         texture: Phaser.RenderTexture;
         private baseFrame;
         constructor(game: PhaserNineSlice.NineSliceGame, x: number, y: number, key: string, frame: string, width: number, height: number, data?: NineSliceCacheData);
         private renderTexture();
         resize(width: number, height: number): void;
+        loadFrameName(frameName: string): void;
         destroy(...args: any[]): void;
         private createTexturePart(x, y, width, height);
     }

@@ -3,7 +3,7 @@
  * NineSlice plugin for Phaser.io!
  *
  * Azerion
- * Build at 19-03-2019
+ * Build at 20-10-2022
  * Released under MIT License 
  */
 
@@ -23,6 +23,7 @@ var PhaserNineSlice;
         __extends(NineSlice, _super);
         function NineSlice(game, x, y, key, frame, width, height, data) {
             var _this = _super.call(this, game, x, y, key, frame) || this;
+            _this.baseKey = key;
             _this.baseTexture = _this.texture.baseTexture;
             _this.baseFrame = _this.texture.frame;
             if (frame !== null && !data) {
@@ -77,6 +78,11 @@ var PhaserNineSlice;
             this.localWidth = width;
             this.localHeight = height;
             this.renderTexture();
+        };
+        NineSlice.prototype.loadFrameName = function (frameName) {
+            var frame = this.game.cache.getFrameByName(this.baseKey, frameName);
+            this.baseFrame = new PIXI.Rectangle(frame.x, frame.y, frame.width, frame.height);
+            this.resize(this.localWidth, this.localHeight);
         };
         NineSlice.prototype.destroy = function () {
             var args = [];
